@@ -27,16 +27,16 @@
 #warning please input your info there
 //guest
 // hostName
-char const *hostname = "192.168.40.2";
+char const *hostname = "198.61.170.24";
 
 // prot
 int port = 5672;
 
 // userName
-char const *userName = "guest";
+char const *userName = "listn";
 
 // password
-char const *password = "guest";
+char const *password = "Rmq22411!?";
 
 // exchangeName
 char const *exchange = "fanot";
@@ -58,7 +58,7 @@ amqp_bytes_t queuename;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    NSLog(@"viewDidLoad");
     // do binding
     [self binding];
     
@@ -123,7 +123,7 @@ void microsleep(int usec)
     
     // is the Service OK?
     if (sockfd < 0) {
-        printf("connect is error!");
+        NSLog(@"connect is error!");
         self.consumerTextView.text = @"Connect Service is Error!";
         return;
     }
@@ -146,7 +146,7 @@ void microsleep(int usec)
     // Declaring queue
     queuename = amqp_bytes_malloc_dup(r->queue);
     if (queuename.bytes == NULL) {
-        fprintf(stderr, "Out of memory while copying queue name");
+         NSLog(@"Error:Out of memory while copying queue name");
         
     }
     
@@ -222,7 +222,7 @@ void microsleep(int usec)
     dispatch_async(concurrentQueue, 
                    ^{
                        // run(conn);
-                       printf("DEBUG:run consumer!\n");
+                       NSLog(@"DEBUG:run consumer!\n");
                        
                        uint64_t start_time = now_microseconds();
                        int received = 0;
@@ -235,7 +235,7 @@ void microsleep(int usec)
                        size_t body_target;
                        uint64_t now;
                        
-                       printf("DEBUG:do while\n");
+                       NSLog(@"DEBUG:do while\n");
                        
                        while (1) 
                        {
@@ -243,7 +243,7 @@ void microsleep(int usec)
                            if (now > next_summary_time) {
                                int countOverInterval = received - previous_received;
                                double intervalRate = countOverInterval / ((now - previous_report_time) / 1000000.0);
-                               printf("DEBUG:%d ms: Received %d - %d since last report (%d Hz)\n",
+                               NSLog(@"DEBUG:%d ms: Received %d - %d since last report (%d Hz)\n",
                                       (int)(now - start_time) / 1000, received, countOverInterval, (int) intervalRate);
                                
                                previous_received = received;
@@ -268,7 +268,7 @@ void microsleep(int usec)
                                return;
                            
                            if (frame.frame_type != AMQP_FRAME_HEADER) {
-                               fprintf(stderr, "Expected header!");
+                                NSLog(@"Error:Expected header!");
                                abort();
                            }
                            
@@ -281,7 +281,7 @@ void microsleep(int usec)
                                    return;
                                
                                if (frame.frame_type != AMQP_FRAME_BODY) {
-                                   fprintf(stderr, "Expected body!");
+                                    NSLog(@"Error:Expected body!");
                                    abort();
                                }
                                
@@ -292,13 +292,13 @@ void microsleep(int usec)
                            received++;
                            // receive message
                            NSString *tempString = [[NSString alloc] init];
-                           printf("DEBUG:The message is:");
+                           NSLog(@"DEBUG:The message is:");
                            for(int i = 0; i<frame.payload.body_fragment.len; i++)
                            {
-                               printf("%c",*((char*)frame.payload.body_fragment.bytes+i));
+                               NSLog(@"%c",*((char*)frame.payload.body_fragment.bytes+i));
                                tempString = [tempString stringByAppendingFormat:@"%c",*((char*)frame.payload.body_fragment.bytes+i)];
                            }
-                           printf("\n");
+                           NSLog(@"\n");
                            self.consumerString = [ self.consumerString stringByAppendingFormat:@"%@  ",tempString];   
                            [tempString release];
                            
