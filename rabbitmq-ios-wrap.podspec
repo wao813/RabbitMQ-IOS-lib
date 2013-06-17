@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.source           =  { :git => 'https://github.com/wao813/RabbitMQ-IOS-lib.git', :tag => '1.0' }
 
   s.source_files     = 'rabbitmq-lib/*.{h,c,a}'
-  s.xcconfig = {'OTHER_LDFLAGS' => '-all_load'}
+  s.xcconfig = {'FRAMEWORK_SEARCH_PATHS' => '$(PODS_ROOT)/rabbitmq-ios-wrap'}
   s.header_mappings_dir =  'rabbitmq-lib/'
 
 end
