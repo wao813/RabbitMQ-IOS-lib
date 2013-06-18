@@ -89,9 +89,9 @@ AMQP_CALL amqp_method_has_content(amqp_method_number_t methodNumber);
 AMQP_PUBLIC_FUNCTION
 int
 AMQP_CALL amqp_decode_method(amqp_method_number_t methodNumber,
-       amqp_pool_t *pool,
-       amqp_bytes_t encoded,
-       void **decoded);
+		   amqp_pool_t *pool,
+		   amqp_bytes_t encoded,
+		   void **decoded);
 
 AMQP_PUBLIC_FUNCTION
 int
@@ -103,14 +103,14 @@ AMQP_CALL amqp_decode_properties(uint16_t class_id,
 AMQP_PUBLIC_FUNCTION
 int
 AMQP_CALL amqp_encode_method(amqp_method_number_t methodNumber,
-       void *decoded,
-       amqp_bytes_t encoded);
+		   void *decoded,
+		   amqp_bytes_t encoded);
 
 AMQP_PUBLIC_FUNCTION
 int
 AMQP_CALL amqp_encode_properties(uint16_t class_id,
-           void *decoded,
-           amqp_bytes_t encoded);
+		       void *decoded,
+		       amqp_bytes_t encoded);
 
 /* Method field records. */
 
