@@ -5,23 +5,28 @@ make clean
  
 DEVROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer
 SDKROOT=$DEVROOT/SDKs/iPhoneOS6.1.sdk
+OPENSSL=/Users/Navied/Downloads/OpenSSL/lib
 ./configure --host=arm-apple-darwin --enable-static \
 CC="$DEVROOT/usr/bin/gcc" \
 CPPFLAGS="-I$SDKROOT/usr/lib/gcc/arm-apple-darwin10/4.2.1/include/ -I$SDKROOT/usr/include/" \
-CFLAGS="$CPPFLAGS -arch armv7s -pipe -no-cpp-precomp -isysroot $SDKROOT" \
+LDFLAGS="-L$OPENSSL -L$SDKROOT/usr/lib -L$SDKROOT/usr/lib/system" \
+CFLAGS="$CPPFLAGS -arch armv7s -pipe -no-cpp-precomp -isysroot $SDKROOT"\
 LD=$DEVROOT/usr/bin/ld
  
 make
 mv librabbitmq/.libs/librabbitmq.a librabbitmq.a.armv7s
+
  
 echo "Will build armv7 library"
 make clean
  
 DEVROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer
 SDKROOT=$DEVROOT/SDKs/iPhoneOS6.1.sdk
+OPENSSL=/Users/Navied/Downloads/OpenSSL/lib
 ./configure --host=arm-apple-darwin --enable-static \
 CC="$DEVROOT/usr/bin/gcc" \
 CPPFLAGS="-I$SDKROOT/usr/lib/gcc/arm-apple-darwin10/4.2.1/include/ -I$SDKROOT/usr/include/" \
+LDFLAGS="-L$OPENSSL -L$SDKROOT/usr/lib -L$SDKROOT/usr/lib/system" \
 CFLAGS="$CPPFLAGS -arch armv7 -pipe -no-cpp-precomp -isysroot $SDKROOT" \
 LD=$DEVROOT/usr/bin/ld
  
@@ -33,9 +38,11 @@ make clean
  
 DEVROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer
 SDKROOT=$DEVROOT/SDKs/iPhoneSimulator6.1.sdk
+OPENSSL=/Users/Navied/Downloads/OpenSSL/lib
 ./configure --enable-static \
 CC="$DEVROOT/usr/bin/gcc" \
 CPPFLAGS="-I$SDKROOT/usr/lib/gcc/i686-apple-darwin10/4.2.1/include/ -I$SDKROOT/usr/include/" \
+LDFLAGS="-L$OPENSSL -L$SDKROOT/usr/lib -L$SDKROOT/usr/lib/system" \
 CFLAGS="$CPPFLAGS -arch i386 -pipe -no-cpp-precomp -isysroot $SDKROOT" \
 LD=$DEVROOT/usr/bin/ld
  
