@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             =  'rabbitmq-ios-wrap'
-  s.version          =  '1.0'
+  s.version          =  '0.3'
   s.summary          =  'librabbitmq wrapper for ios'
   s.homepage         =  'https://github.com/wao813/RabbitMQ-IOS-lib.git'
   s.source           =  { :git => 'https://github.com/wao813/RabbitMQ-IOS-lib.git', :branch => 'rabbitmq-0.3.0'}
