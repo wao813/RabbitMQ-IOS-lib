@@ -425,10 +425,6 @@ AMQP_DEPRECATED(
 );
 
 AMQP_PUBLIC_FUNCTION
-void
-AMQP_CALL amqp_set_socket(amqp_connection_state_t state, amqp_socket_t *socket);
-
-AMQP_PUBLIC_FUNCTION
 int
 AMQP_CALL amqp_tune_connection(amqp_connection_state_t state,
                                int channel_max,
@@ -670,35 +666,24 @@ AMQP_CALL
 amqp_socket_open(amqp_socket_t *self, const char *host, int port);
 
 /**
- * Close a socket connection and free resources.
+ * Open a socket connection.
  *
- * This function closes a socket connection and releases any resources used by
- * the object. After calling this function the specified socket should no
- * longer be referenced.
+ * This function opens a socket connection returned from amqp_tcp_socket_new()
+ * or amqp_ssl_socket_new(). This function should be called after setting
+ * socket options and prior to assigning the socket to an AMQP connection with
+ * amqp_set_socket().
  *
  * \param [in,out] self A socket object.
+ * \param [in] host Connect to this host.
+ * \param [in] port Connect on this remote port.
+ * \param [in] timeout Max allowed time to spent on opening. If NULL - run in blocking mode
  *
  * \return Zero upon success, non-zero otherwise.
  */
 AMQP_PUBLIC_FUNCTION
 int
 AMQP_CALL
-amqp_socket_close(amqp_socket_t *self);
-
-/**
- * Retrieve an error code for the last socket operation.
- *
- * At the time of writing, this interface is not well supported and is subject
- * to changes!
- *
- * \param [in,out] self A socket object.
- *
- * \return Zero upon success, an opaque error code otherwise
- */
-AMQP_PUBLIC_FUNCTION
-int
-AMQP_CALL
-amqp_socket_error(amqp_socket_t *self);
+amqp_socket_open_noblock(amqp_socket_t *self, const char *host, int port, struct timeval *timeout);
 
 /**
  * Get the socket descriptor in use by a socket object.
@@ -715,6 +700,10 @@ AMQP_PUBLIC_FUNCTION
 int
 AMQP_CALL
 amqp_socket_get_sockfd(amqp_socket_t *self);
+
+AMQP_PUBLIC_FUNCTION
+amqp_socket_t *
+amqp_get_socket(amqp_connection_state_t state);
 
 AMQP_END_DECLS
 
