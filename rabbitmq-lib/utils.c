@@ -53,14 +53,12 @@ void die(const char *fmt, ...)
   vfprintf(stderr, fmt, ap);
   va_end(ap);
   fprintf(stderr, "\n");
-  exit(1);
 }
 
 void die_on_error(int x, char const *context)
 {
   if (x < 0) {
     fprintf(stderr, "%s: %s\n", context, amqp_error_string2(x));
-    exit(1);
   }
 }
 
@@ -102,8 +100,6 @@ void die_on_amqp_error(amqp_rpc_reply_t x, char const *context)
     }
     break;
   }
-
-  exit(1);
 }
 
 static void dump_row(long count, int numinrow, int *chs)
